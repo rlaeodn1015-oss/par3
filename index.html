@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스승님 | 봄날의 기적, 공나연 프로 숏게임 특별레슨</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Montserrat:wght@800;900&display=swap');
+
+        :root {
+            --primary: #FFB7C5; /* Cherry Blossom Pink */
+            --secondary: #FF80AB;
+            --dark: #2D2D2D;
+        }
+
+        html, body { overflow-x: hidden; scroll-behavior: smooth; }
+        body { font-family: 'Noto Sans KR', sans-serif; word-break: keep-all; background-color: #ffffff; }
+        .font-montserrat { font-family: 'Montserrat', sans-serif; }
+        .text-pink-primary { color: var(--secondary); }
+        .bg-pink-primary { background-color: var(--primary); }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #FFF0F3 0%, #FFB7C5 100%);
+        }
+
+        .price-card { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border: 1px solid rgba(255, 183, 197, 0.2);
+        }
+        .price-card:hover { 
+            transform: translateY(-15px); 
+            box-shadow: 0 30px 60px -12px rgba(255,128,171,0.25);
+            border-color: var(--secondary);
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: floating 3s ease-in-out infinite; }
+
+        .chat-btn {
+            position: fixed; bottom: 100px; right: 20px; z-index: 1000;
+            display: flex; align-items: center; background: #FAE100; color: #3C1E1E;
+            padding: 14px 24px; border-radius: 50px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            font-weight: 900; transition: all 0.3s ease;
+        }
+        .chat-btn:hover { transform: scale(1.05); }
+
+        /* 벚꽃잎 효과 */
+        .petal {
+            position: fixed;
+            top: -10%;
+            background-color: #ffb7c5;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0vh) translateX(0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translateY(110vh) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+
+        .premium-underline {
+            background: linear-gradient(to top, rgba(255, 128, 171, 0.4) 40%, transparent 40%);
+        }
+
+        .review-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #fce4ec;
+        }
+    </style>
+</head>
+<body class="text-gray-900">
+
+    <!-- 벚꽃잎 컨테이너 -->
+    <div id="petal-container"></div>
+
+    <header class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-pink-100">
+        <div class="container mx-auto px-6 h-18 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <span class="font-montserrat font-black text-2xl tracking-tighter text-gray-900">SEUSEUNGNIM</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#register" class="text-gray-600 font-bold hover:text-pink-600 transition-colors">레슨 문의📩</a>
+                <a href="#" class="bg-pink-600 text-white px-7 py-2.5 rounded-full text-sm font-black shadow-lg hover:bg-pink-700 transition-all">앱 다운로드📲</a>
+            </div>
+        </div>
+    </header>
+
+    <a href="http://pf.kakao.com/_kxawRn/chat" target="_blank" class="chat-btn">
+        <i class="fas fa-comment mr-2"></i> 1:1 실시간 상담
+    </a>
+
+    <!-- Hero Section -->
+    <section class="relative hero-gradient pt-32 pb-20 md:pt-52 md:pb-44 overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-3/5 text-center md:text-left" data-aos="fade-up">
+                    <div class="inline-flex items-center space-x-2 bg-white/50 backdrop-blur-md px-5 py-2 rounded-full mb-8 border border-white/60">
+                        <span class="text-pink-600 text-xs font-black tracking-widest uppercase">Spring Miracle Short Game</span>
+                    </div>
+                    <!-- ✅ 1️⃣ 헤드라인 수정 -->
+                    <h1 class="text-5xl md:text-7xl font-black leading-[1.1] mb-8 tracking-tighter text-gray-900">
+                        레슨 받아도 스코어<br>
+                        <span class="text-pink-600 italic">비슷하다구요?</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8 font-medium leading-relaxed text-gray-700 opacity-90">
+                        KLPGA 공나연 프로와 함께하는<br> 봄날의 특별 숏게임 레슨🌸<br>
+                        <span class="premium-underline text-gray-900 font-bold">단 2시간의 집중 레슨</span>으로<br> 여러분의 핸디를 낮춰봐요!
+                    </p>
+                    
+                    <!-- ✅ 2️⃣ 타겟팅 블록 추가 -->
+                    <div class="flex flex-col gap-3 mb-12 text-gray-600 font-bold text-lg">
+                        <p class="flex items-center justify-center md:justify-start"><i class="fas fa-check-circle text-pink-500 mr-2"></i> 80~100타 사이 스코어 정체기 골퍼</p>
+                        <p class="flex items-center justify-center md:justify-start"><i class="fas fa-check-circle text-pink-500 mr-2"></i> 필드에서 그린주변 실수가 잦으신 분</p>
+                        <p class="flex items-center justify-center md:justify-start"><i class="fas fa-check-circle text-pink-500 mr-2"></i> 3펏,벙커 지옥에서 머쓱하게 웃으시는 분</p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#register" class="inline-block bg-gray-900 text-white px-10 py-5 rounded-2xl text-xl font-black shadow-2xl hover:bg-pink-600 transform hover:-translate-y-1 transition-all">지금 바로 신청하기</a>
+                        <a href="#" class="inline-block bg-white/60 backdrop-blur-md text-pink-600 border border-pink-200 px-10 py-5 rounded-2xl text-xl font-black hover:bg-white transition-all">스승님 앱 둘러보기</a>
+                    </div>
+                </div>
+                <div class="md:w-2/5 relative" data-aos="fade-left" data-aos-delay="200">
+                    <div class="w-full max-w-md mx-auto animate-float">
+                        <div class="aspect-[3/4] bg-white/40 rounded-[4rem] border-4 border-white/60 shadow-2xl overflow-hidden relative group">
+                            <img src="images/0c357ff2-863d-4c91-a6dd-5688130ab5a5.jpg" alt="공나연 프로" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                            <div class="absolute bottom-10 left-0 w-full text-center">
+                                <p class="text-white font-montserrat font-black text-2xl tracking-widest">GONG NA YUN</p>
+                                <p class="text-white/80 text-sm font-bold uppercase">KLPGA Class A Professional</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ LIVE STATUS BAR (카운트다운 및 실시간 압박) -->
+    <section class="bg-black text-white py-3 text-center text-sm font-bold tracking-tight sticky top-20 z-40 shadow-xl leading-tight">
+
+🔥 현재 <span id="liveCount" class="text-pink-400 font-black">27</span>명 확인 중  
+<span class="hidden md:inline">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+
+⏳ 할인 마감까지 <span id="countdown" class="text-pink-400 font-black">06:00:00</span>  
+
+<br class="md:hidden">
+
+<span class="block md:inline mt-1 md:mt-0">
+⚠ 잔여 <span class="text-pink-400 font-black">3자리</span>
+</span>
+
+</section>
+
+    <!-- Stats Section -->
+    <section class="py-24 bg-white relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-6xl font-black mb-16 leading-tight text-center" data-aos="fade-up">
+                드라이버는 <span class="text-gray-200 italic">Show</span><br>
+                <span class="premium-underline italic">숏게임은 '실력'입니다.</span>
+            </h2>
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 text-center">
+                <div class="bg-gray-50 p-10 rounded-[3rem] border border-gray-100" data-aos="fade-up">
+                    <p class="text-gray-400 font-bold mb-4 uppercase tracking-widest text-xs">Typical Score</p>
+                    <p class="text-6xl font-black text-gray-300 font-montserrat">평균 98</p>
+                    <p class="mt-4 text-gray-500 font-medium">연습장 매일 출석 골퍼</p>
+                </div>
+                <div class="bg-pink-600 p-10 rounded-[3.5rem] shadow-2xl transform scale-105 z-10" data-aos="fade-up" data-aos-delay="100">
+                    <p class="text-pink-200 font-bold mb-4 uppercase tracking-widest text-xs">After Lesson</p>
+                    <p class="text-7xl font-black text-white font-montserrat tracking-tighter">평균 89</p>
+                    <p class="mt-4 text-white font-black text-lg">평균 9타 감소 보장</p>
+                </div>
+                <div class="bg-gray-50 p-10 rounded-[3rem] border border-gray-100" data-aos="fade-up" data-aos-delay="200">
+                    <p class="text-gray-400 font-bold mb-4 uppercase tracking-widest text-xs">Target Level</p>
+                    <p class="text-6xl font-black text-gray-800 font-montserrat">싱글</p>
+                    <p class="mt-4 text-gray-500 font-medium">상위 10%를 향한 도약</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pain Points -->
+    <section class="py-28 bg-stone-50 overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h3 class="text-pink-600 text-5xl font-black mb-6 italic font-montserrat">STRESS?</h3>
+                <h2 class="text-3xl md:text-5xl font-black mb-6 tracking-tight text-gray-900">혹시 이런 경험 있으신가요?</h2>
+                <div class="w-20 h-1.5 bg-pink-200 mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto" data-aos="fade-up">
+                <div class="p-10 rounded-[2.5rem] bg-white border border-pink-50 flex items-center space-x-6 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 bg-pink-50 text-pink-500 rounded-2xl flex items-center justify-center flex-shrink-0 font-black group-hover:bg-pink-500 group-hover:text-white transition-colors">01</div>
+                    <span class="text-xl font-bold text-gray-800 tracking-tight">그린 근처만 오면 시작되는 뒷땅과 탑볼</span>
+                </div>
+                <div class="p-10 rounded-[2.5rem] bg-white border border-pink-50 flex items-center space-x-6 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 bg-pink-50 text-pink-500 rounded-2xl flex items-center justify-center flex-shrink-0 font-black group-hover:bg-pink-500 group-hover:text-white transition-colors">02</div>
+                    <span class="text-xl font-bold text-gray-800 tracking-tight">퍼팅 3펏은 기본, 다 까먹는 어프로치</span>
+                </div>
+                <div class="p-10 rounded-[2.5rem] bg-white border border-pink-50 flex items-center space-x-6 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 bg-pink-50 text-pink-500 rounded-2xl flex items-center justify-center flex-shrink-0 font-black group-hover:bg-pink-500 group-hover:text-white transition-colors">03</div>
+                    <span class="text-xl font-bold text-gray-800 tracking-tight">연습장은 실수가 없는데 필드에서 멘붕</span>
+                </div>
+                <div class="p-10 rounded-[2.5rem] bg-white border border-pink-50 flex items-center space-x-6 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 bg-pink-50 text-pink-500 rounded-2xl flex items-center justify-center flex-shrink-0 font-black group-hover:bg-pink-500 group-hover:text-white transition-colors">04</div>
+                    <span class="text-xl font-bold text-gray-800 tracking-tight">경사지, 러프 상황만 오면 속수무책</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ 3️⃣ 실제 후기 섹션 추가 -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-black italic tracking-tighter">Real Testimonials</h2>
+                <p class="text-gray-500 mt-4 text-lg">스승님 레슨생들의 생생한 변화</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto" data-aos="fade-up">
+                <div class="review-card">
+                    <div class="flex text-pink-400 mb-4 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-800 font-bold text-lg leading-relaxed mb-6">"어프로치 루틴 하나 바꿨는데 스코어 평균 6타가 줄었습니다. 진짜 필드에서 실수 안했어요!!!"</p>
+                    <p class="text-gray-400 text-sm font-black">김** 회원님 (평균 94타 -> 88타)</p>
+                </div>
+                <div class="review-card">
+                    <div class="flex text-pink-400 mb-4 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-800 font-bold text-lg leading-relaxed mb-6">"퍼팅 거리감 잡히니까 퍼팅이 쉬워졌어요ㅋㅋㅋ 공나연 프로님 감사해요"</p>
+                    <p class="text-gray-400 text-sm font-black">이** 회원님 (평균 102타 -> 96타)</p>
+                </div>
+                <div class="review-card">
+                    <div class="flex text-pink-400 mb-4 text-sm">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-800 font-bold text-lg leading-relaxed mb-6">"왜 이제야 스승님을 알았나요... 숏게임에 자신감이 생기니까 오히려 아이언샷도 좋아졌어요☺️"</p>
+                    <p class="text-gray-400 text-sm font-black">박** 회원님 (평균 88타 -> 80타)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [가격 설득 블록] -->
+    <section class="py-20 text-center bg-stone-50" data-aos="fade-up">
+        <h2 class="text-3xl md:text-5xl font-black mb-10">이 레슨이 비싼 이유</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed text-lg md:text-xl px-6">
+            원포인트 50분 레슨 10~15만원 쓰고도 스코어 그대로인 경험 많으셨죠?<br><br>
+            스승님X공나연 레슨은 <b>스코어를 줄이는 숏게임</b>을 2시간 집중 런닝으로 잡아드립니다<br>
+            단순 연습이 아닌 '스코어를 줄이는 법'을 배우는 진짜 레슨
+        </p>
+    </section>
+
+    <!-- [한정성 / 긴급성 블록] -->
+    <section class="py-16 bg-pink-100 text-center" data-aos="zoom-in">
+        <p class="text-pink-600 font-black text-xl md:text-3xl uppercase tracking-tighter">
+            🌸 4월 한정 레슨 (소수 정원 운영)
+        </p>
+        <p class="text-gray-900 font-bold text-2xl mt-4">
+            현재 남은 자리 : <span class="text-pink-600 font-black">3자리</span>
+        </p>
+        <p class="text-gray-500 text-sm mt-3 font-medium">
+            마감 시 다음 일정은 2달 후 오픈됩니다.<br> 지금 이 기회를 놓치지 마세요!
+        </p>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-32 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-20" data-aos="fade-up">
+                <p class="text-pink-600 font-black tracking-[0.3em] uppercase text-sm mb-4">Pricing & Plan</p>
+                <h2 class="text-5xl md:text-6xl font-black italic tracking-tighter">봄날의 기적 패키지</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto text-left">
+                <!-- 2인 레슨 -->
+                <div class="price-card bg-stone-50 p-12 rounded-[4rem] flex flex-col justify-between" data-aos="fade-right">
+                    <div>
+                        <div class="flex justify-between items-start mb-10">
+                            <div>
+                                <h3 class="text-2xl font-black mb-2 tracking-tight">2인 집중 레슨</h3>
+                                <p class="text-gray-500 font-medium">친구,연인,가족과 함께!</p>
+                            </div>
+                            <span class="bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full text-xs font-black">Best Value</span>
+                        </div>
+                        <div class="mb-10 text-center">
+                            <span class="text-6xl font-black font-montserrat tracking-tighter">20</span>
+                            <span class="text-2xl font-bold text-gray-400">만원 / 1인</span>
+                            <p class="text-red-500 font-black mt-4">
+                                🔥 오늘 신청 시 적용되는 한정가
+                            </p>
+                        </div>
+                        <ul class="space-y-4 mb-10">
+                            <li class="flex items-center text-gray-700 font-bold"><i class="fas fa-check-circle text-pink-500 mr-3"></i> 레슨비 포함</li>
+                            <li class="flex items-center text-gray-700 font-bold"><i class="fas fa-check-circle text-pink-500 mr-3"></i> 120분 실전 집중 코칭</li>
+                            <li class="flex items-center text-gray-700 font-bold"><i class="fas fa-check-circle text-pink-500 mr-3"></i> 스승님 앱 1만 포인트 제공</li>
+                        </ul>
+                    </div>
+                    <a href="#register" class="block w-full py-6 bg-white border-2 border-gray-900 text-gray-900 text-center rounded-2xl font-black hover:bg-gray-900 hover:text-white transition-all text-xl">선택하기</a>
+                </div>
+
+                <!-- 1인 레슨 -->
+                <div class="price-card bg-gray-900 p-12 rounded-[4rem] text-white flex flex-col justify-between" data-aos="fade-left">
+                    <div>
+                        <div class="flex justify-between items-start mb-10">
+                            <div>
+                                <h3 class="text-2xl font-black mb-2 tracking-tight text-white">1인 프라이빗</h3>
+                                <p class="text-gray-400 font-medium">오직 한 사람에게만 집중</p>
+                            </div>
+                            <span class="bg-white/10 text-white px-4 py-1.5 rounded-full text-xs font-black">Premium</span>
+                        </div>
+                        <div class="mb-10 text-center">
+                            <span class="text-6xl font-black font-montserrat tracking-tighter">30</span>
+                            <span class="text-2xl font-bold text-gray-500">만원</span>
+                            <p class="text-red-500 font-black mt-4">
+                                🔥 오늘 신청 시 적용되는 한정가
+                            </p>
+                        </div>
+                        <ul class="space-y-4 mb-10 text-gray-300">
+                            <li class="flex items-center font-bold"><i class="fas fa-check-circle text-pink-500 mr-3"></i> 공나연 프로 밀착 1:1 레슨</li>
+                            <li class="flex items-center font-bold"><i class="fas fa-check-circle text-pink-500 mr-3"></i> 취약점 집중 보완 솔루션</li>
+                            <li class="flex items-center font-bold"><i class="fas fa-check-circle text-pink-500 mr-3"></i> 평생 소장 실전 루틴 영상</li>
+                        </ul>
+                    </div>
+                    <a href="#register" class="block w-full py-6 bg-pink-600 text-white text-center rounded-2xl font-black hover:bg-pink-700 transition-all text-xl">신청하기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- [스승님 앱 이유 블록] -->
+    <section class="py-24 bg-gray-900 text-white text-center">
+        <h2 class="text-3xl md:text-4xl font-black mb-16 px-6">왜 스승님 앱으로 신청해야 할까요?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto px-6">
+            <div>
+                <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-user-shield text-2xl"></i></div>
+                <h3 class="font-black text-xl mb-3">✔ 믿을 수 있는 자신감</h3>
+                <p class="text-gray-400">100% 환불 제도로 검증된 스승님과 실전 레슨만 연결</p>
+            </div>
+            <div>
+                <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-golf-ball text-2xl"></i></div>
+                <h3 class="font-black text-xl mb-3">✔ 실전 레슨 특화</h3>
+                <p class="text-gray-400">파3·필드 중심 만족을 제공</p>
+            </div>
+            <div>
+                <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6"><i class="fas fa-chart-line text-2xl"></i></div>
+                <h3 class="font-black text-xl mb-3">✔ 레슨 후 관리</h3>
+                <p class="text-gray-400">앱으로 사후 피드백 & 관리 가능</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- [지금 안 하면 손해 블록] -->
+    <section class="py-24 text-center bg-white" data-aos="fade-up">
+        <p class="text-2xl md:text-4xl font-black leading-tight">
+            이번 봄 지나면,<br>
+            <span class="text-pink-600">다음 기회는 언제일지 모릅니다🌸</span>
+        </p>
+        <p class="text-gray-500 mt-6 text-lg font-medium px-6">
+            레슨은 언제든 받을 수 있지만<br>
+            <span class="text-gray-900 font-bold">“지금 타수 줄이는 골든 타이밍”</span>은 바로 지금이에요
+        </p>
+    </section>
+
+    <!-- Reservation Form -->
+    <section id="register" class="py-32 bg-pink-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto bg-white p-12 md:p-24 rounded-[4rem] shadow-3xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-40 h-40 bg-pink-100 rounded-full -mr-20 -mt-20"></div>
+                <div class="relative z-10 text-center">
+                    <h2 class="text-3xl md:text-5xl font-black mb-12 italic font-montserrat text-pink-600 tracking-tighter uppercase">
+Reservation
+</h2>
+                    <form action="https://formspree.io/f/mbdakbon" method="POST" class="space-y-8 max-w-2xl mx-auto text-left">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-3">
+                                <label class="text-xs font-black text-gray-400 uppercase tracking-widest ml-4">Name</label>
+                                <input type="text" name="name" required placeholder="성함" class="w-full px-8 py-6 rounded-3xl bg-gray-50 border-none font-bold text-lg outline-none">
+                            </div>
+                            <div class="space-y-3">
+                                <label class="text-xs font-black text-gray-400 uppercase tracking-widest ml-4">Phone</label>
+                                <input type="tel" name="phone" required placeholder="연락처" class="w-full px-8 py-6 rounded-3xl bg-gray-50 border-none font-bold text-lg outline-none">
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <label class="text-xs font-black text-gray-400 uppercase tracking-widest ml-4">Lesson Type</label>
+                            <select name="lesson_type" required class="w-full px-8 py-6 rounded-3xl bg-gray-50 border-none font-bold text-lg outline-none appearance-none">
+                                <option value="">레슨 옵션 선택</option>
+                                <option value="2인">2인 집중 레슨 (1인 20만원)</option>
+                                <option value="1인">1인 프라이빗 레슨 (30만원)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full bg-gray-900 text-white py-8 rounded-3xl text-2xl font-black shadow-2xl hover:bg-pink-600 transition-all transform hover:scale-[1.02] font-montserrat italic uppercase">Submit My Lesson</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white pt-32 pb-48 border-t border-pink-50 text-center">
+        <div class="container mx-auto px-6">
+            <div class="font-montserrat font-black text-4xl tracking-tighter mb-4 text-gray-200 uppercase">SEUSEUNGNIM</div>
+            <p class="text-pink-300 font-black mb-12 tracking-[0.5em] text-xs uppercase italic">Miracle Short Game</p>
+            <div class="text-gray-400 text-xs md:text-sm mb-12 font-medium leading-relaxed opacity-80">
+    공나연 프로 | KLPGA 정회원 | 스승님 인증 마스터 인스트럭터<br>
+    주식회사 스승님 | 사업자번호 470-81-03277 | 대표이사 김대우<br>
+    경기도 수원시 광교로 107, 경기도경제과학진흥원 창업보육동 204호
+</div>
+            <p class="text-[10px] text-gray-300 font-bold tracking-[0.3em] uppercase">© 2026 Seuseungnim App Co. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mobile CTA Bar -->
+    <div class="fixed bottom-0 left-0 w-full bg-white/95 backdrop-blur-xl border-t border-pink-100 py-5 px-6 z-[100] md:hidden flex items-center justify-between gap-4 shadow-2xl">
+        <div class="flex flex-col">
+            <span class="text-[10px] font-black text-pink-600 tracking-widest uppercase italic">Spring Offer</span>
+            <span class="font-black text-gray-900 text-lg tracking-tighter">4월 잔여석 3개</span>
+        </div>
+        <a href="#register" class="bg-gray-900 text-white px-10 py-4 rounded-2xl font-black shadow-xl italic uppercase text-sm">Reserve Now</a>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // 벚꽃잎 효과
+        function createPetal() {
+            const container = document.getElementById('petal-container');
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            const startX = Math.random() * window.innerWidth;
+            const size = Math.random() * 15 + 10;
+            const duration = Math.random() * 5 + 5;
+            const delay = Math.random() * 5;
+            petal.style.left = startX + 'px';
+            petal.style.width = size + 'px';
+            petal.style.height = size + 'px';
+            petal.style.animationDuration = duration + 's';
+            petal.style.animationDelay = delay + 's';
+            if (Math.random() > 0.8) petal.style.backgroundColor = '#ff80ab';
+            container.appendChild(petal);
+            setTimeout(() => { petal.remove(); }, (duration + delay) * 1000);
+        }
+        for(let i=0; i<15; i++) createPetal();
+        setInterval(createPetal, 700);
+
+        // ✅ 6시간 카운트다운 스크립트
+        let time = 6 * 60 * 60;
+        function updateTimer() {
+            let hours = Math.floor(time / 3600);
+            let minutes = Math.floor((time % 3600) / 60);
+            let seconds = time % 60;
+            const countdownEl = document.getElementById("countdown");
+            if(countdownEl) {
+                countdownEl.innerText = 
+                    String(hours).padStart(2, '0') + ":" + 
+                    String(minutes).padStart(2, '0') + ":" + 
+                    String(seconds).padStart(2, '0');
+            }
+            if (time > 0) time--;
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // ✅ 실시간 인원 변동
+        let viewers = 23;
+        setInterval(() => {
+            const liveCountEl = document.getElementById("liveCount");
+            if(liveCountEl) {
+                let change = Math.floor(Math.random() * 3); // 0~2 증가
+                viewers += change;
+                if (viewers > 55) viewers -= 5;
+                liveCountEl.innerText = viewers;
+            }
+        }, 4000);
+    </script>
+</body>
+</html>
