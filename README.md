@@ -1,2 +1,2 @@
-# ssnim-lesson-landing
-서수연 스승님 3월 특별 캠프 - 제주도
+# ssnim-lesson-par3
+곽시랑프로 파3레슨
