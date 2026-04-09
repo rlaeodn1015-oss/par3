@@ -9,686 +9,432 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Montserrat:ital,wght@0,700;0,900;1,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --spring-bg: #fffcf5;
             --primary-green: #15803d; 
             --soft-gold: #c5a059;
-            --deep-green: #064e3b;
-            --text-main: #111827;
-            --text-muted: #6b7280;
+            --spring-bg: #fffcf5;
+            --text-dark: #1a202c;
         }
 
-        /* Base Setup */
         body {
             font-family: 'Noto Sans KR', sans-serif;
             background-color: var(--spring-bg);
-            color: var(--text-main);
+            color: var(--text-dark);
             overflow-x: hidden;
             word-break: keep-all;
-            line-height: 1.8;
-            -webkit-tap-highlight-color: transparent;
+            line-height: 1.7;
+            letter-spacing: -0.03em;
         }
 
-        /* Typography Scailing */
         .font-serif { font-family: 'Noto Serif KR', serif; }
         .font-mont { font-family: 'Montserrat', sans-serif; }
-        
-        h1 { font-size: 2.5rem !important; line-height: 1.1 !important; font-weight: 900 !important; letter-spacing: -0.05em; }
-        @media (min-width: 768px) { h1 { font-size: 6.5rem !important; } }
 
-        /* Mobile Optimization: Section Spacing */
-        .section-py { padding-top: 5rem; padding-bottom: 5rem; }
-        @media (min-width: 768px) { .section-py { padding-top: 15rem; padding-bottom: 15rem; } }
-
-        /* Advanced UI Effects */
-        .card-3d-wrapper { perspective: 2000px; }
-        .card-3d {
-            transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-            transform-style: preserve-3d;
-        }
+        /* Typography Scaling - Mobile Optimized */
+        h1 { font-size: 1.85rem !important; line-height: 1.2 !important; font-weight: 900 !important; }
+        h2 { font-size: 1.5rem !important; line-height: 1.3 !important; font-weight: 800 !important; }
         @media (min-width: 768px) {
-            .card-3d:hover { transform: rotateY(10deg) rotateX(5deg) translateZ(30px); }
+            h1 { font-size: 4.5rem !important; }
+            h2 { font-size: 3rem !important; }
         }
 
+        /* Padding Adjustments */
+        .section-py { padding-top: 5rem; padding-bottom: 5rem; }
+        @media (min-width: 768px) { .section-py { padding-top: 10rem; padding-bottom: 10rem; } }
+        
+        .container-px { padding-left: 20px; padding-right: 20px; }
+
+        /* Hero Adjustments */
+        .hero-pt { padding-top: 130px; }
+        @media (min-width: 768px) { .hero-pt { padding-top: 200px; } }
+
+        /* Custom UI */
         .glass-panel {
             background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(10px);
             border: 1px solid rgba(21, 128, 61, 0.05);
         }
 
-        .text-gradient-green {
-            background: linear-gradient(135deg, var(--primary-green) 0%, #22c55e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Progress & Floating UI */
-        #progress-bar {
-            position: fixed;
-            top: 0; left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary-green), var(--soft-gold));
-            z-index: 2000;
-            width: 0%;
-        }
-
         .btn-premium {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 10px 20px rgba(21, 128, 61, 0.15);
         }
-        .btn-premium::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: 0.6s;
-        }
-        .btn-premium:hover::before { left: 100%; }
-        
+        .btn-premium:active { transform: scale(0.96); }
+
         .mobile-cta-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(15px);
-            border-top: 1px solid rgba(0,0,0,0.05);
-            padding: 10px 16px env(safe-area-inset-bottom, 16px) 16px;
-            z-index: 999;
-            display: flex;
-            gap: 10px;
+            position: fixed; bottom: 0; left: 0; right: 0;
+            background: white; padding: 12px 16px env(safe-area-inset-bottom, 16px);
+            display: flex; gap: 10px; z-index: 1000; border-top: 1px solid #f1f5f9;
         }
 
-        /* Mobile specific list adjustment */
-        .curriculum-card {
-            border-left: 4px solid var(--primary-green);
+        /* Timeline Dot */
+        .step-dot {
+            width: 12px; height: 12px; background: var(--primary-green);
+            border-radius: 50%; position: absolute; left: -6px; top: 8px;
         }
 
-        /* Timeline for Mobile */
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #f1f5f9;
-        }
+        /* Success Card Numbers */
+        .score-num { font-family: 'Montserrat', sans-serif; font-weight: 900; letter-spacing: -0.05em; }
 
     </style>
 </head>
-<body class="paper-texture">
+<body>
 
-    <div id="progress-bar"></div>
-
-    <!-- ⏰ TOP VIP STATUS -->
-    <div class="fixed top-0 w-full z-[1000] bg-[#0f172a] text-white py-2 px-4 shadow-2xl">
-        <div class="container mx-auto flex justify-center md:justify-between items-center text-[8px] md:text-xs font-bold tracking-widest uppercase">
-            <div class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                <span>Today's Reservation: <span id="timer" class="text-[#c5a059]">02:59:59</span> Left</span>
-            </div>
-            <div class="hidden md:flex gap-8 opacity-40 font-normal">
-                <span>Certified KLPGA Master Course</span>
-                <span>Exclusive Private Coaching</span>
-            </div>
+    <!-- ⏰ TOP BAR -->
+    <div class="fixed top-0 w-full z-[1100] bg-[#0f172a] text-white h-9 flex items-center shadow-lg">
+        <div class="container mx-auto px-5 flex justify-center items-center text-[10px] font-bold tracking-widest uppercase">
+            <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse mr-2"></span>
+            Today's Slot: <span id="timer" class="text-[#c5a059] ml-1">02:59:59</span> Left
         </div>
     </div>
 
-    <!-- Header (Optimized for Mobile Height) -->
-    <header class="fixed top-7 md:top-10 w-full z-[200] bg-white/95 backdrop-blur-md border-b border-gray-100 h-14 md:h-24 flex items-center transition-all duration-500" id="mainHeader">
+    <!-- Header -->
+    <header class="fixed top-9 w-full z-[1050] bg-white/95 backdrop-blur-md border-b border-gray-100 h-14 flex items-center" id="mainHeader">
         <div class="container mx-auto px-5 flex justify-between items-center">
-            <span class="text-xl md:text-4xl font-black font-mont tracking-tighter text-gray-900">SSNIM <span class="text-[#15803d]">GOLF</span></span>
-            <nav class="hidden lg:flex space-x-10 text-[11px] font-black text-gray-400 tracking-widest uppercase items-center">
-                <a href="#intro" class="hover:text-[#15803d]">Philosophy</a>
-                <a href="#pro" class="hover:text-[#15803d]">Master</a>
-                <a href="#results" class="hover:text-[#15803d]">Evidence</a>
-                <a href="#pricing" class="hover:text-[#15803d]">Investment</a>
-                <a href="#register" class="bg-[#15803d] text-white px-8 py-3 rounded-full hover:bg-black transition-all">Reserve</a>
-            </nav>
-            <div class="lg:hidden">
-                <button onclick="sharePage()" class="text-xl text-gray-400 p-1"><i class="fas fa-share-alt"></i></button>
+            <span class="text-xl font-black font-mont text-gray-900 tracking-tighter">SSNIM <span class="text-[#15803d]">GOLF</span></span>
+            <div class="flex items-center gap-4">
+                <button onclick="sharePage()" class="text-lg text-gray-400 p-1"><i class="fas fa-share-alt"></i></button>
             </div>
         </div>
     </header>
 
-    <!-- 1️⃣ HERO: THE ENTRY (Mobile Centric) -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-20 pb-32">
-        <div class="absolute inset-0 z-0">
-            <img src="https://rlaeodn1015-oss.github.io/camp/images/202404113119349ljb2727.jpg" class="w-full h-full object-cover opacity-20 md:opacity-40" alt="Background">
-            <div class="absolute inset-0 bg-gradient-to-b from-white/0 via-white/50 to-white"></div>
+    <!-- 1️⃣ HERO SECTION -->
+    <section class="relative min-h-screen flex items-start justify-center overflow-hidden bg-white hero-pt pb-20">
+        <div class="absolute inset-0 z-0 scale-105">
+            <img src="https://rlaeodn1015-oss.github.io/camp/images/202404113119349ljb2727.jpg" class="w-full h-full object-cover opacity-20" alt="Field">
+            <div class="absolute inset-0 bg-gradient-to-b from-white/0 via-white/40 to-white"></div>
         </div>
-
-        <div class="container mx-auto px-6 relative z-10 text-center">
-            <div data-aos="fade-up" data-aos-duration="1200">
-                <div class="inline-flex items-center gap-2 bg-green-50 text-[#15803d] px-5 py-2 rounded-full font-black text-[9px] md:text-sm mb-8 tracking-[0.3em] uppercase border border-green-100 shadow-sm">
-                    Peak Performance Field Lesson
+        <div class="container mx-auto container-px relative z-10 text-center">
+            <div data-aos="fade-up">
+                <div class="inline-block bg-green-50 text-[#15803d] px-4 py-1.5 rounded-full font-black text-[10px] mb-6 uppercase border border-green-100 shadow-sm">
+                    Goal Achievement Course
                 </div>
-                <h1 class="font-serif font-black mb-8 md:mb-16 tracking-tighter text-gray-900 leading-[1.1]">
-                    압도적인 결과를 <br class="md:hidden"> 증명하는 <br>
-                    <span class="text-gradient-green italic underline decoration-[#c5a059] underline-offset-[10px] md:underline-offset-[24px]">단 하나의 레슨</span>
+                <h1 class="font-serif text-gray-900 mb-8">
+                    골프 목적 달성 레슨 <br>
+                    <span class="text-[#15803d] italic underline decoration-[#c5a059] underline-offset-8">파3 숏게임 실전</span>
                 </h1>
-                <p class="text-base md:text-4xl font-bold leading-relaxed mb-10 md:mb-24 text-gray-500 max-w-4xl mx-auto tracking-tight">
-                    파3 숏게임 집중 · 9홀 실전 밀착 레슨 <br class="hidden md:block">
-                    당신의 스코어를 <span class="text-[#15803d]">파괴</span>하고, <span class="text-[#c5a059]">승리</span>를 이식합니다.
+                <p class="text-[15px] font-bold text-gray-500 mb-10 leading-relaxed px-2">
+                    단순한 조언이 아닌, 당신의 필드 데이터를 <br>
+                    확실하게 변화시키는 1:1 밀착 코칭
                 </p>
-
-                <!-- Dual CTA for Mobile -->
-                <div class="flex flex-col md:flex-row gap-3 md:gap-5 justify-center mt-6 max-w-2xl mx-auto">
-                    <a href="https://ssnim.com/install.html"
-                       class="btn-premium px-8 py-5 md:px-16 md:py-8 bg-[#15803d] text-white rounded-xl md:rounded-[2.5rem] font-black text-lg md:text-3xl shadow-xl flex-1 transform transition-all">
-                        📲 앱에서 1초 예약하기
-                    </a>
-                    <a href="http://pf.kakao.com/_kxawRn/chat"
-                       class="btn-premium px-8 py-5 md:px-16 md:py-8 border-2 border-gray-200 bg-white text-gray-700 rounded-xl md:rounded-[2.5rem] font-bold text-lg md:text-3xl hover:border-[#15803d] flex-1 transition-all">
-                        💬 실시간 상담 문의
-                    </a>
+                <div class="flex flex-col gap-3 px-4 max-w-sm mx-auto">
+                    <a href="https://ssnim.com/install.html" class="btn-premium bg-[#15803d] text-white py-4 rounded-xl font-black text-lg">📲 앱 예약 바로가기</a>
+                    <a href="http://pf.kakao.com/_kxawRn/chat" class="btn-premium border-2 border-gray-200 bg-white text-gray-700 py-4 rounded-xl font-bold text-lg">💬 1:1 상담 문의</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 2️⃣ LIVE STATUS (Enhanced Urgency) -->
-    <section class="bg-[#0f172a] text-white py-4 md:py-7 sticky top-[56px] md:top-[90px] z-[150] shadow-2xl border-y border-white/5 overflow-hidden">
-        <div class="container mx-auto px-4 flex justify-center items-center gap-4 md:gap-16 text-[10px] md:text-2xl font-black tracking-tighter whitespace-nowrap">
+    <!-- 2️⃣ REAL-TIME TRUST UI -->
+    <section class="bg-[#111827] text-white py-4 sticky top-[56px] z-[1000] shadow-xl overflow-hidden border-y border-white/5">
+        <div class="container mx-auto px-5 flex justify-center items-center gap-4 text-[11px] font-black tracking-tighter whitespace-nowrap">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
-                <span>현재 실시간 <span class="text-[#22c55e]">34명</span>이 일정 확인 중</span>
+                <span>실시간 <span class="text-[#22c55e]">27명</span> 확인 중</span>
             </div>
-            <span class="text-gray-700">|</span>
+            <span class="opacity-30">|</span>
             <div class="flex items-center gap-2">
                 <i class="fas fa-check-circle text-green-500"></i>
-                <span class="text-gray-300"><span class="text-[#c5a059]">박**님</span> 레슨 예약 확정</span>
+                <span>방금 <span class="text-[#c5a059]">김**님</span> 신청 완료</span>
             </div>
         </div>
     </section>
 
-    <!-- 3️⃣ PHILOSOPHY: THE DIFFERENCE -->
-    <section class="section-py bg-white text-center px-6" id="intro">
-        <div class="container mx-auto max-w-6xl" data-aos="fade-up">
-            <span class="text-[#c5a059] font-black text-[10px] md:text-sm tracking-[0.5em] block mb-6 md:mb-10 uppercase">The Master's Insight</span>
-            <h2 class="text-3xl md:text-[7rem] font-black mb-10 md:mb-20 leading-[1.2] tracking-tighter text-gray-900">
-                왜 <span class="text-[#15803d]">스승님</span>만이 <br class="md:hidden"> 정답인가?
-            </h2>
-            <div class="w-16 md:w-40 h-1 md:h-2.5 bg-[#15803d] mx-auto mb-12 md:mb-24 rounded-full"></div>
+    <!-- 3️⃣ CORE MESSAGE -->
+    <section class="section-py bg-white text-center container-px" data-aos="fade-up">
+        <h2 class="text-gray-900 mb-6">"스코어는 결국 <br> <span class="text-[#15803d]">숏게임</span>에서 결정됩니다"</h2>
+        <div class="w-12 h-1 bg-[#15803d] mx-auto mb-8"></div>
+        <p class="text-[15px] font-medium text-gray-500 max-w-sm mx-auto">드라이버는 쇼, 퍼팅은 돈입니다. <br>진짜 타수를 줄이고 싶다면 100m 안쪽을 정복해야 합니다.</p>
+    </section>
+
+    <!-- 4️⃣ PROBLEM DEFINITION -->
+    <section class="section-py bg-gray-50 container-px">
+        <div class="max-w-md mx-auto" data-aos="fade-up">
+            <span class="text-[#c5a059] font-black text-[10px] block mb-4 uppercase">The Problem</span>
+            <h2 class="mb-10 text-gray-900">혹시 이런 고민 <br> 반복하고 계신가요?</h2>
+            <div class="space-y-4">
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 flex items-center gap-4 shadow-sm">
+                    <i class="fas fa-circle-exclamation text-red-400"></i>
+                    <p class="text-gray-600 font-bold">어프로치 거리감이 매번 달라서 온그린이 힘들다</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 flex items-center gap-4 shadow-sm">
+                    <i class="fas fa-circle-exclamation text-red-400"></i>
+                    <p class="text-gray-600 font-bold">그린 위에서 매번 3퍼트로 타수를 잃는다</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 flex items-center gap-4 shadow-sm">
+                    <i class="fas fa-circle-exclamation text-red-400"></i>
+                    <p class="text-gray-600 font-bold">연습장에선 잘 되는데 필드만 나가면 무너진다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5️⃣ TRANSITION & 6️⃣ WHY PAR 3 -->
+    <section class="section-py bg-[#15803d] text-white container-px overflow-hidden relative">
+        <div class="absolute top-0 right-0 p-10 opacity-10 text-[10rem]"><i class="fas fa-golf-ball-tee"></i></div>
+        <div class="max-w-md mx-auto relative z-10" data-aos="fade-up">
+            <h2 class="text-white mb-8">"이 모든 문제, <br> <span class="text-[#c5a059]">파3 실전</span>에서 해결합니다"</h2>
+            <div class="space-y-8">
+                <div>
+                    <h4 class="text-xl font-black text-[#c5a059] mb-2">필드와 동일한 환경</h4>
+                    <p class="text-green-50 opacity-80 text-[15px]">인조 매트가 아닌 실제 잔디에서의 임팩트 감각을 주입합니다.</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-black text-[#c5a059] mb-2">숏게임 집중 타격</h4>
+                    <p class="text-green-50 opacity-80 text-[15px]">정규 홀에서는 불가능한 숏게임 반복 훈련이 가능합니다.</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-black text-[#c5a059] mb-2">즉각적인 데이터 교정</h4>
+                    <p class="text-green-50 opacity-80 text-[15px]">실수하는 즉시 프로의 피드백을 받고 몸에 익힙니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7️⃣ LESSON METHOD & 8️⃣ CORE VALUE -->
+    <section class="section-py bg-white container-px">
+        <div class="max-w-md mx-auto" data-aos="fade-up">
+            <h2 class="mb-12 text-gray-900">스승님만이 드리는 <br> <span class="text-[#15803d]">결정적 가치</span></h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100">
+                    <div class="text-[#15803d] text-2xl mb-4"><i class="fas fa-ruler-horizontal"></i></div>
+                    <h4 class="font-black mb-2">거리감 교정</h4>
+                    <p class="text-xs text-gray-500 font-medium">30/50/70m 절대 공식을 전수합니다.</p>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100">
+                    <div class="text-[#15803d] text-2xl mb-4"><i class="fas fa-rotate"></i></div>
+                    <h4 class="font-black mb-2">퍼팅 루틴</h4>
+                    <p class="text-xs text-gray-500 font-medium">실수를 방지하는 5단계 루틴을 구축합니다.</p>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100">
+                    <div class="text-[#15803d] text-2xl mb-4"><i class="fas fa-mountain"></i></div>
+                    <h4 class="font-black mb-2">상황 대응</h4>
+                    <p class="text-xs text-gray-500 font-medium">경사지, 러프 등 실전 지형에 대응합니다.</p>
+                </div>
+                <div class="p-6 bg-gray-50 rounded-3xl border border-gray-100">
+                    <div class="text-[#15803d] text-2xl mb-4"><i class="fas fa-check-double"></i></div>
+                    <h4 class="font-black mb-2">즉시 적용</h4>
+                    <p class="text-xs text-gray-500 font-medium">내일 라운딩에서 바로 타수를 줄입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9️⃣ RESULTS & 🔟 SUCCESS EXAMPLES -->
+    <section class="section-py bg-gray-900 text-white container-px overflow-hidden">
+        <div class="max-w-md mx-auto" data-aos="fade-up">
+            <span class="text-[#c5a059] font-black text-[10px] block mb-4 uppercase">Proven Success</span>
+            <h2 class="text-white mb-12">이론이 아니라 <br> <span class="text-[#22c55e]">숫자</span>로 증명합니다</h2>
             
-            <div class="grid lg:grid-cols-2 gap-10 md:gap-24 text-left items-center">
-                <div class="space-y-8 md:space-y-16">
-                    <p class="text-xl md:text-5xl text-gray-800 leading-[1.4] font-black">
-                        "100번의 연습장 스윙보다 <br class="md:hidden"> <span class="text-red-600 italic">1번의 실전 레슨</span>이 <br class="md:hidden"> 인생을 바꿉니다."
-                    </p>
-                    <div class="space-y-6 md:space-y-10 text-base md:text-2xl text-gray-500 leading-relaxed font-medium">
-                        <p>연습장에서는 누구나 싱글입니다. 하지만 필드에서는 왜 무너질까요? 원인은 스윙이 아니라 <span class="text-gray-900 font-black">'환경에 대한 대응력'</span>의 부재입니다.</p>
-                        <p>스승님은 곽시랑 프로의 1,200회 이상 필드 레슨 빅데이터를 기반으로, 당신의 습관을 분석하고 <span class="text-[#15803d] font-bold">즉시 점수로 연결되는 기술</span>만 골라 전수합니다.</p>
+            <div class="space-y-6">
+                <div class="bg-white/5 p-8 rounded-[2.5rem] border border-white/10">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-gray-400 font-bold uppercase text-xs">Score Change</span>
+                        <span class="bg-[#15803d] text-white px-3 py-1 rounded-full text-[10px] font-black italic">SINGLE SESSION</span>
                     </div>
+                    <div class="flex items-center gap-6">
+                        <span class="score-num text-4xl text-gray-500">95</span>
+                        <i class="fas fa-arrow-right text-[#c5a059]"></i>
+                        <span class="score-num text-7xl text-[#22c55e]">87<span class="text-xl ml-1">타</span></span>
+                    </div>
+                    <p class="text-gray-400 mt-6 text-sm font-bold">"어프로치 공식 하나로 싱글 문턱까지 왔습니다."</p>
                 </div>
-                <div class="space-y-6">
-                    <!-- Feature Cards -->
-                    <div class="bg-green-50 p-6 md:p-12 rounded-3xl md:rounded-[4rem] border border-green-100 shadow-sm" data-aos="fade-left">
-                        <div class="flex gap-4 md:gap-6 items-start">
-                            <span class="w-10 h-10 md:w-16 md:h-16 bg-[#15803d] text-white rounded-xl md:rounded-2xl flex items-center justify-center font-black shrink-0 text-sm md:text-2xl">01</span>
-                            <div>
-                                <h4 class="text-lg md:text-3xl font-black mb-2 text-gray-900">결과 책임제 (Score KPI)</h4>
-                                <p class="text-sm md:text-xl text-gray-500 font-bold">감에 의존하는 레슨은 끝났습니다. 오직 타수로 가치를 증명합니다.</p>
-                            </div>
-                        </div>
+
+                <div class="bg-white/5 p-8 rounded-[2.5rem] border border-white/10">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-gray-400 font-bold uppercase text-xs">Score Change</span>
+                        <span class="bg-[#15803d] text-white px-3 py-1 rounded-full text-[10px] font-black italic">SHORT GAME FOCUS</span>
                     </div>
-                    <div class="bg-green-50 p-6 md:p-12 rounded-3xl md:rounded-[4rem] border border-green-100 shadow-sm" data-aos="fade-left" data-aos-delay="200">
-                        <div class="flex gap-4 md:gap-6 items-start">
-                            <span class="w-10 h-10 md:w-16 md:h-16 bg-[#15803d] text-white rounded-xl md:rounded-2xl flex items-center justify-center font-black shrink-0 text-sm md:text-2xl">02</span>
-                            <div>
-                                <h4 class="text-lg md:text-3xl font-black mb-2 text-gray-900">리얼 필드 환경 (100% Real)</h4>
-                                <p class="text-sm md:text-xl text-gray-500 font-bold">실제 잔디, 벙커, 그린 위에서 뇌와 근육의 실전 감각을 동기화합니다.</p>
-                            </div>
-                        </div>
+                    <div class="flex items-center gap-6">
+                        <span class="score-num text-4xl text-gray-500">102</span>
+                        <i class="fas fa-arrow-right text-[#c5a059]"></i>
+                        <span class="score-num text-7xl text-[#22c55e]">94<span class="text-xl ml-1">타</span></span>
                     </div>
+                    <p class="text-gray-400 mt-6 text-sm font-bold">"백돌이 탈출, 파3 레슨이 결정적이었습니다."</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 4️⃣ MASTER PROFILE: KWAK SI RANG (Detailed) -->
-    <section class="section-py bg-white overflow-hidden px-6" id="pro">
-        <div class="container mx-auto max-w-7xl">
-            <div class="flex flex-col lg:flex-row items-center gap-12 md:gap-32">
-                <!-- 3D Master Image -->
-                <div class="w-full lg:w-5/12 card-3d-wrapper" data-aos="fade-right">
-                    <div class="card-3d relative">
-                        <div class="absolute -inset-6 md:-inset-12 border-4 md:border-8 border-green-50 rounded-[2.5rem] md:rounded-[5rem] translate-x-4 translate-y-4 md:translate-x-8 md:translate-y-8 opacity-40 -z-10"></div>
-                        <div class="rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-2xl aspect-[4/5] bg-gray-100 border-2 border-white transform">
-                            <img src="https://rlaeodn1015-oss.github.io/camp/images/KakaoTalk_20260327_165459882.png" 
-                                 alt="곽시랑 프로" class="w-full h-full object-cover grayscale-[0.05] contrast-[1.05]">
-                        </div>
-                        <!-- Badge for Mobile -->
-                        <div class="absolute -bottom-6 -right-2 md:-bottom-12 md:-right-12 bg-[#15803d] text-white p-6 md:p-20 rounded-[2rem] md:rounded-[4rem] shadow-2xl" data-aos="zoom-in" data-aos-delay="400">
-                            <p class="text-3xl md:text-8xl font-black italic tracking-tighter text-[#c5a059] mb-1">MASTER</p>
-                            <p class="text-[8px] md:text-base uppercase tracking-[0.5em] font-black opacity-60">KWAK SI RANG</p>
-                        </div>
-                    </div>
+    <!-- 1️⃣1️⃣ CURRICULUM & 1️⃣2️⃣ SCHEDULE -->
+    <section class="section-py bg-white container-px">
+        <div class="max-w-md mx-auto" data-aos="fade-up">
+            <h2 class="mb-12">레슨 상세 안내</h2>
+            <div class="space-y-8 border-l-2 border-gray-100 pl-6 relative">
+                <div class="relative">
+                    <span class="step-dot"></span>
+                    <h4 class="font-black text-[#15803d] mb-1">AM 10:00 - 숏게임 정밀 진단</h4>
+                    <p class="text-sm text-gray-500 font-medium">현재 어프로치 및 퍼팅 습관을 분석합니다.</p>
                 </div>
+                <div class="relative">
+                    <span class="step-dot"></span>
+                    <h4 class="font-black text-[#15803d] mb-1">PM 01:00 - 파3 9홀 실전 레슨</h4>
+                    <p class="text-sm text-gray-500 font-medium">필드 상황별 대응 및 클럽 선택 노하우 전수.</p>
+                </div>
+                <div class="relative">
+                    <span class="step-dot"></span>
+                    <h4 class="font-black text-[#15803d] mb-1">PM 04:00 - 최종 피드백 리포트</h4>
+                    <p class="text-sm text-gray-500 font-medium">교정 포인트 및 개인 훈련 가이드 제공.</p>
+                </div>
+            </div>
 
-                <!-- Text Bio -->
-                <div class="w-full lg:w-7/12" data-aos="fade-left">
-                    <span class="text-[#15803d] text-[10px] md:text-sm font-black tracking-[0.8em] block mb-8 uppercase italic">Professional Career</span>
-                    <h2 class="text-5xl md:text-[10rem] font-black mb-10 md:mb-16 leading-[0.85] tracking-tighter text-gray-900">곽시랑 프로</h2>
-                    
-                    <div class="space-y-8 md:space-y-16">
-                        <div class="bg-[#111827] p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] shadow-2xl">
-                            <p class="text-xl md:text-4xl font-serif text-white italic leading-relaxed font-bold">
-                                "단순한 지도가 아닙니다. <br class="md:hidden"> 당신의 골프에 <span class="text-[#c5a059]">프로의 머리</span>를 이식합니다."
-                            </p>
-                        </div>
+            <div class="mt-16 bg-green-50 p-8 rounded-3xl border border-green-100">
+                <h4 class="font-black mb-6 flex items-center gap-2"><i class="fas fa-calendar-alt"></i> 예약 가능 일정</h4>
+                <div class="flex gap-2 flex-wrap">
+                    <span class="bg-white border border-[#15803d] text-[#15803d] px-4 py-2 rounded-xl font-bold text-sm">4월 18일</span>
+                    <span class="bg-white border border-[#15803d] text-[#15803d] px-4 py-2 rounded-xl font-bold text-sm">4월 21일</span>
+                    <span class="bg-white border border-[#15803d] text-[#15803d] px-4 py-2 rounded-xl font-bold text-sm">4월 25일</span>
+                </div>
+                <p class="text-xs text-gray-400 mt-4 font-bold">* 이외 일정은 카톡 문의로 조율 가능합니다.</p>
+            </div>
+        </div>
+    </section>
 
-                        <div class="grid grid-cols-2 gap-4 md:gap-10">
-                            <div class="bg-gray-50 p-6 md:p-12 rounded-3xl border border-gray-100 hover:bg-green-50 transition-all group">
-                                <i class="fas fa-certificate text-2xl md:text-5xl text-[#15803d] mb-6 group-hover:scale-110 transition-transform"></i>
-                                <h4 class="text-base md:text-3xl font-black mb-2">KLPGA 인증</h4>
-                                <p class="text-xs md:text-xl text-gray-400 font-bold leading-tight">투어 프로 및 교습가 공식 인증</p>
-                            </div>
-                            <div class="bg-gray-50 p-6 md:p-12 rounded-3xl border border-gray-100 hover:bg-green-50 transition-all group">
-                                <i class="fas fa-users text-2xl md:text-5xl text-[#15803d] mb-6 group-hover:scale-110 transition-transform"></i>
-                                <h4 class="text-base md:text-3xl font-black mb-2">1,200+ Cases</h4>
-                                <p class="text-xs md:text-xl text-gray-400 font-bold leading-tight">누적 아마추어 필드 레슨 데이터</p>
-                            </div>
-                        </div>
-                        
-                        <div class="hidden md:block space-y-4 text-gray-400 font-bold text-lg border-l-4 border-gray-100 pl-8">
-                            <p>• 하나은행, 한화 프로암 등 다수 프로암 초청 코칭</p>
-                            <p>• 2018 점프투어 솔라고 예선 1위 등 화려한 투어 성적</p>
-                            <p>• ‘4주 만에 필드 나가기’ 베스트셀러 저자</p>
-                            <p>• 現 마제스티 소속 프로 아티스트 활동</p>
-                        </div>
-                    </div>
+    <!-- 1️⃣3️⃣ PRICE & 1️⃣4️⃣ SCARCITY -->
+    <section class="section-py bg-white container-px">
+        <div class="max-w-md mx-auto text-center" data-aos="zoom-in">
+            <div class="glass-panel p-12 rounded-[3.5rem] border-4 border-[#15803d] relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-[#15803d] text-white px-6 py-2 rounded-bl-3xl text-[10px] font-black uppercase">Limited Only 2</div>
+                <p class="text-gray-400 font-bold uppercase text-xs mb-4">Investment for Scoring</p>
+                <div class="flex items-end justify-center gap-2 mb-6 text-[#15803d]">
+                    <span class="score-num text-8xl leading-none">15</span>
+                    <span class="text-3xl font-black mb-2">만원</span>
+                </div>
+                <p class="text-gray-400 font-bold text-sm italic mb-8">※ 입장료 및 제반 비용 별도</p>
+                <div class="h-px bg-gray-100 mb-8"></div>
+                <p class="text-red-500 font-black text-sm animate-pulse"><i class="fas fa-triangle-exclamation"></i> 2인 한정, 선착순 마감 진행 중</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1️⃣5️⃣ REFUND / GUARANTEE -->
+    <section class="section-py bg-white container-px">
+        <div class="max-w-md mx-auto text-center" data-aos="fade-up">
+            <div class="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-8">
+                <i class="fas fa-shield-check text-3xl text-[#15803d]"></i>
+            </div>
+            <h2 class="mb-6">스승님 보장 정책</h2>
+            <p class="text-[#15803d] font-black text-xl mb-6 italic">"불만족 시 협의 후 100% 환불"</p>
+            <p class="text-[14px] text-gray-500 font-medium leading-relaxed">
+                스승님은 투명한 기준으로 가치 있는 레슨만 제공합니다. <br>
+                목적 달성에 실패했다고 판단될 경우, <br>
+                마스터와 소통을 통해 책임 있게 해결해 드릴 것을 약속합니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- 16️⃣ MASTER PRO -->
+    <section class="section-py bg-white overflow-hidden container-px" id="master">
+        <div class="max-w-md mx-auto">
+            <div class="relative mb-12" data-aos="fade-up">
+                <div class="rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/5] bg-gray-100 border-2 border-white">
+                    <img src="https://rlaeodn1015-oss.github.io/camp/images/KakaoTalk_20260327_165459882.png" alt="Pro" class="w-full h-full object-cover contrast-[1.05]">
+                </div>
+                <!-- 🔥 정밀하게 작아진 MASTER 배지 -->
+                <div class="absolute -bottom-4 -right-2 bg-[#15803d] text-white p-4 md:p-10 rounded-2xl md:rounded-[3rem] shadow-xl">
+                    <p class="text-lg md:text-5xl font-black italic tracking-tighter text-[#c5a059] leading-none mb-1">MASTER</p>
+                    <p class="text-[8px] md:text-sm uppercase tracking-[0.5em] font-black opacity-60">KWAK SI RANG</p>
+                </div>
+            </div>
+            <div data-aos="fade-up">
+                <h2 class="text-4xl font-black mb-6">곽시랑 프로</h2>
+                <p class="text-[#15803d] font-bold text-xl mb-8">결과가 보이지 않는 레슨은 하지 않습니다.</p>
+                <div class="space-y-4 text-gray-500 font-medium text-sm md:text-lg">
+                    <p class="flex gap-3"><span class="text-[#15803d] font-black">•</span> KLPGA 정회원 투어 프로 및 교습가</p>
+                    <p class="flex gap-3"><span class="text-[#15803d] font-black">•</span> 1,200회 이상의 누적 필드 레슨 케이스</p>
+                    <p class="flex gap-3"><span class="text-[#15803d] font-black">•</span> 아마추어 타수 하락 전문 마스터</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 5️⃣ PROGRAM: 5-STEP JOURNEY (Mobile Timeline) -->
-    <section class="section-py bg-gray-50 px-6" id="curriculum">
-        <div class="container mx-auto max-w-4xl">
-            <div class="text-center mb-16 md:mb-32" data-aos="fade-up">
-                <span class="text-[#15803d] font-black text-xs md:text-sm tracking-[0.5em] block mb-8 uppercase">The Master's Curriculum</span>
-                <h2 class="text-4xl md:text-[8rem] font-black tracking-tighter text-gray-900 leading-none">PROGRAM</h2>
-                <p class="text-lg md:text-4xl text-gray-500 font-bold mt-10 md:mt-16">당신의 골프가 재탄생하는 <span class="text-red-500 underline underline-offset-8">실전 5단계</span></p>
-            </div>
-
-            <div class="space-y-10 md:space-y-20 relative">
-                <!-- Step 1 -->
-                <div class="relative pl-10 md:pl-0 flex flex-col md:flex-row items-center gap-10 timeline-item" data-aos="fade-up">
-                    <div class="w-full md:w-1/2 md:text-right">
-                        <span class="text-[#c5a059] font-mont font-black text-2xl md:text-5xl italic mb-4 block">01. 진단</span>
-                        <h3 class="text-xl md:text-4xl font-black text-gray-900 mb-4">데이터 기반 심층 분석</h3>
-                        <p class="text-sm md:text-2xl text-gray-500 font-bold leading-relaxed">트랙맨 및 영상 분석을 통해 <br class="hidden md:block"> 현재 당신의 스윙 궤도와 미스 원인을 0.1도 단위로 정밀 파악합니다.</p>
-                    </div>
-                    <div class="hidden md:flex w-16 h-16 bg-[#15803d] text-white rounded-full z-10 shrink-0 items-center justify-center font-black text-2xl">1</div>
-                    <div class="w-full md:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-gray-100 curriculum-card">
-                        <p class="text-gray-400 font-bold text-xs md:text-lg mb-2 uppercase">Key Point</p>
-                        <p class="text-gray-800 font-black text-base md:text-2xl">객관적인 수치를 통한 <br> '현실적인 목표 타수' 설정</p>
-                    </div>
+    <!-- 17️⃣ REVIEWS (FINAL PUSH) -->
+    <section class="section-py bg-[#f8fafc] container-px">
+        <div class="max-w-md mx-auto" data-aos="fade-up">
+            <h2 class="mb-12">검증된 수강 후기</h2>
+            <div class="space-y-4">
+                <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
+                    <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="font-bold text-gray-800 mb-4">"퍼팅 쓰리펏이 아예 사라졌어요. 90타에서 바로 83타 기록!"</p>
+                    <p class="text-xs text-gray-400 font-bold uppercase tracking-widest">— 박*영 회원님 (8Y)</p>
                 </div>
-
-                <!-- Step 2 -->
-                <div class="relative pl-10 md:pl-0 flex flex-col md:flex-row-reverse items-center gap-10 timeline-item" data-aos="fade-up">
-                    <div class="w-full md:w-1/2 text-left">
-                        <span class="text-[#c5a059] font-mont font-black text-2xl md:text-5xl italic mb-4 block">02. 숏게임</span>
-                        <h3 class="text-xl md:text-4xl font-black text-gray-900 mb-4">어프로치 절대 공식 전수</h3>
-                        <p class="text-sm md:text-2xl text-gray-500 font-bold leading-relaxed">30, 50, 70m 거리감 부재를 해결합니다. <br class="hidden md:block"> 어떤 경사에서도 핀 2m 이내에 붙이는 프로의 공식을 몸에 새겨드립니다.</p>
-                    </div>
-                    <div class="hidden md:flex w-16 h-16 bg-[#15803d] text-white rounded-full z-10 shrink-0 items-center justify-center font-black text-2xl">2</div>
-                    <div class="w-full md:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-gray-100 curriculum-card">
-                        <p class="text-gray-400 font-bold text-xs md:text-lg mb-2 uppercase">Key Point</p>
-                        <p class="text-gray-800 font-black text-base md:text-2xl">시계추 공식을 통한 <br> 완벽한 거리감 데이터 주입</p>
-                    </div>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="relative pl-10 md:pl-0 flex flex-col md:flex-row items-center gap-10 timeline-item" data-aos="fade-up">
-                    <div class="w-full md:w-1/2 md:text-right">
-                        <span class="text-[#c5a059] font-mont font-black text-2xl md:text-5xl italic mb-4 block">03. 특수 샷</span>
-                        <h3 class="text-xl md:text-4xl font-black text-gray-900 mb-4">벙커 공포 완전 파괴</h3>
-                        <p class="text-sm md:text-2xl text-gray-500 font-bold leading-relaxed">벙커는 공포가 아닌 기회입니다. <br class="hidden md:block"> 모래를 때리는 타격음부터 달라지는 마술 같은 벙커 레슨을 경험하세요.</p>
-                    </div>
-                    <div class="hidden md:flex w-16 h-16 bg-[#15803d] text-white rounded-full z-10 shrink-0 items-center justify-center font-black text-2xl">3</div>
-                    <div class="w-full md:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-gray-100 curriculum-card">
-                        <p class="text-gray-400 font-bold text-xs md:text-lg mb-2 uppercase">Key Point</p>
-                        <p class="text-gray-800 font-black text-base md:text-2xl">바운스 활용 및 <br> 페이스 오픈의 물리학적 이해</p>
-                    </div>
-                </div>
-
-                <!-- Step 4 -->
-                <div class="relative pl-10 md:pl-0 flex flex-col md:flex-row-reverse items-center gap-10 timeline-item" data-aos="fade-up">
-                    <div class="w-full md:w-1/2 text-left">
-                        <span class="text-[#c5a059] font-mont font-black text-2xl md:text-5xl italic mb-4 block">04. 퍼팅</span>
-                        <h3 class="text-xl md:text-4xl font-black text-gray-900 mb-4">라인 리딩 & 루틴 완성</h3>
-                        <p class="text-sm md:text-2xl text-gray-500 font-bold leading-relaxed">쓰리퍼트는 실수가 아니라 시스템의 부재입니다. <br class="hidden md:block"> 곽시랑 프로의 5단계 퍼팅 루틴을 그대로 복제해 드립니다.</p>
-                    </div>
-                    <div class="hidden md:flex w-16 h-16 bg-[#15803d] text-white rounded-full z-10 shrink-0 items-center justify-center font-black text-2xl">4</div>
-                    <div class="w-full md:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-gray-100 curriculum-card">
-                        <p class="text-gray-400 font-bold text-xs md:text-lg mb-2 uppercase">Key Point</p>
-                        <p class="text-gray-800 font-black text-base md:text-2xl">그린 착시 현상 제거 및 <br> 확고한 에이밍 시스템 구축</p>
-                    </div>
-                </div>
-
-                <!-- Step 5 -->
-                <div class="relative pl-10 md:pl-0 flex flex-col md:flex-row items-center gap-10 timeline-item" data-aos="fade-up">
-                    <div class="w-full md:w-1/2 md:text-right">
-                        <span class="text-[#c5a059] font-mont font-black text-2xl md:text-5xl italic mb-4 block">05. 실전</span>
-                        <h3 class="text-xl md:text-4xl font-black text-gray-900 mb-4">9홀 밀착 매니지먼트</h3>
-                        <p class="text-sm md:text-2xl text-gray-500 font-bold leading-relaxed">배운 모든 것을 코스에서 풀어냅니다. <br class="hidden md:block"> 프로가 홀마다 어떤 생각을 하고 클럽을 선택하는지 직접 체득합니다.</p>
-                    </div>
-                    <div class="hidden md:flex w-16 h-16 bg-[#15803d] text-white rounded-full z-10 shrink-0 items-center justify-center font-black text-2xl">5</div>
-                    <div class="w-full md:w-1/2 bg-white p-8 rounded-3xl shadow-sm border border-gray-100 curriculum-card">
-                        <p class="text-gray-400 font-bold text-xs md:text-lg mb-2 uppercase">Key Point</p>
-                        <p class="text-gray-800 font-black text-base md:text-2xl">멘탈 관리 기법 및 <br> 코스 공략 '시나리오' 작성법</p>
-                    </div>
+                <div class="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
+                    <div class="flex text-yellow-400 mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="font-bold text-gray-800 mb-4">"거리감 교정 하나로 싱글까지 왔습니다. 무조건 가세요."</p>
+                    <p class="text-xs text-gray-400 font-bold uppercase tracking-widest">— 김*우 회원님 (5Y)</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 6️⃣ RESULTS: VERIFIED NUMBERS (Success Cases) -->
-    <section class="section-py bg-white px-6" id="results">
-        <div class="container mx-auto">
-            <div class="text-center mb-16 md:mb-40" data-aos="fade-up">
-                <span class="text-[#c5a059] font-black text-xs md:text-sm tracking-[0.5em] block mb-8 uppercase">Actual Score Records</span>
-                <h2 class="text-3xl md:text-[9rem] font-black tracking-tighter text-gray-900 italic leading-[0.85]">EVIDENCE</h2>
-                <p class="text-lg md:text-4xl text-gray-500 font-bold mt-10 md:mt-20">우리는 오직 수치로만 이야기합니다.</p>
-            </div>
-
-            <div class="flex flex-col gap-8 md:grid md:grid-cols-3 md:gap-16 max-w-7xl mx-auto">
-                <!-- Case 1 -->
-                <div class="bg-white p-10 md:p-20 rounded-[3rem] md:rounded-[5rem] shadow-[0_50px_100px_-30px_rgba(0,0,0,0.08)] border border-gray-50" data-aos="zoom-in">
-                    <div class="flex items-center justify-between mb-12">
-                        <div class="text-center">
-                            <p class="text-[10px] text-gray-400 font-black uppercase mb-1">Before</p>
-                            <p class="text-4xl md:text-7xl font-black text-gray-200">95</p>
-                        </div>
-                        <i class="fas fa-arrow-right-long text-3xl text-[#15803d] opacity-30"></i>
-                        <div class="text-center">
-                            <p class="text-[10px] text-[#15803d] font-black uppercase mb-1 tracking-widest">After</p>
-                            <p class="text-5xl md:text-9xl font-black text-[#15803d] tracking-tighter">87<span class="text-xl md:text-4xl ml-1">타</span></p>
-                        </div>
-                    </div>
-                    <p class="text-xl md:text-3xl font-black text-gray-800 leading-tight mb-8">"어프로치 공식 하나로 <br> 필드가 편해졌습니다."</p>
-                    <p class="text-base md:text-2xl text-gray-400 font-bold leading-relaxed mb-12">항상 그린 주변에서 2-3타를 잃었는데, 이제는 1m 이내에 붙이는 재미에 빠졌습니다.</p>
-                    <div class="flex items-center gap-5 border-t border-gray-100 pt-10">
-                        <div class="w-12 h-12 md:w-16 md:h-16 bg-green-50 rounded-full flex items-center justify-center text-[#15803d] text-2xl"><i class="fas fa-user-tie"></i></div>
-                        <div>
-                            <p class="font-black text-gray-900 text-sm md:text-xl">김*우 회원님</p>
-                            <p class="text-[10px] md:text-sm text-gray-400 font-bold">임원 / 구력 5년</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case 2 -->
-                <div class="bg-white p-10 md:p-20 rounded-[3rem] md:rounded-[5rem] shadow-[0_50px_100px_-30px_rgba(0,0,0,0.08)] border border-gray-50" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="flex items-center justify-between mb-12">
-                        <div class="text-center">
-                            <p class="text-[10px] text-gray-400 font-black uppercase mb-1">Before</p>
-                            <p class="text-4xl md:text-7xl font-black text-gray-200">102</p>
-                        </div>
-                        <i class="fas fa-arrow-right-long text-3xl text-[#15803d] opacity-30"></i>
-                        <div class="text-center">
-                            <p class="text-[10px] text-[#15803d] font-black uppercase mb-1 tracking-widest">After</p>
-                            <p class="text-5xl md:text-9xl font-black text-[#15803d] tracking-tighter">94<span class="text-xl md:text-4xl ml-1">타</span></p>
-                        </div>
-                    </div>
-                    <p class="text-xl md:text-3xl font-black text-gray-800 leading-tight mb-8">"백돌이 탈출의 <br> 확실한 키였습니다."</p>
-                    <p class="text-base md:text-2xl text-gray-400 font-bold leading-relaxed mb-12">벙커와 러프에서 헤매던 제가 이제는 상황에 맞춰 클럽을 골라 쓰는 여유가 생겼습니다.</p>
-                    <div class="flex items-center gap-5 border-t border-gray-100 pt-10">
-                        <div class="w-12 h-12 md:w-16 md:h-16 bg-green-50 rounded-full flex items-center justify-center text-[#15803d] text-2xl"><i class="fas fa-briefcase"></i></div>
-                        <div>
-                            <p class="font-black text-gray-900 text-sm md:text-xl">이*현 회원님</p>
-                            <p class="text-[10px] md:text-sm text-gray-400 font-bold">전문직 / 구력 2년</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Case 3 -->
-                <div class="bg-white p-10 md:p-20 rounded-[3rem] md:rounded-[5rem] shadow-[0_50px_100px_-30px_rgba(0,0,0,0.08)] border border-gray-50" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="flex items-center justify-between mb-12">
-                        <div class="text-center">
-                            <p class="text-[10px] text-gray-400 font-black uppercase mb-1">Before</p>
-                            <p class="text-4xl md:text-7xl font-black text-gray-200">90</p>
-                        </div>
-                        <i class="fas fa-arrow-right-long text-3xl text-[#15803d] opacity-30"></i>
-                        <div class="text-center">
-                            <p class="text-[10px] text-[#15803d] font-black uppercase mb-1 tracking-widest">After</p>
-                            <p class="text-5xl md:text-9xl font-black text-[#15803d] tracking-tighter">83<span class="text-xl md:text-4xl ml-1">타</span></p>
-                        </div>
-                    </div>
-                    <p class="text-xl md:text-3xl font-black text-gray-800 leading-tight mb-8">"싱글의 문턱을 <br> 넘게 해준 전략들."</p>
-                    <p class="text-base md:text-2xl text-gray-400 font-bold leading-relaxed mb-12">퍼팅 루틴 하나 바꿨을 뿐인데 쓰리펏이 사라졌습니다. 결과가 말해주는 레슨입니다.</p>
-                    <div class="flex items-center gap-5 border-t border-gray-100 pt-10">
-                        <div class="w-12 h-12 md:w-16 md:h-16 bg-green-50 rounded-full flex items-center justify-center text-[#15803d] text-2xl"><i class="fas fa-gem"></i></div>
-                        <div>
-                            <p class="font-black text-gray-900 text-sm md:text-xl">박*영 회원님</p>
-                            <p class="text-[10px] md:text-sm text-gray-400 font-bold">사업가 / 구력 8년</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 7️⃣ TRUST: THE POLICY (Luxurious & Honest) -->
-    <section class="section-py bg-white relative overflow-hidden px-6" id="guarantee">
-        <div class="container mx-auto max-w-5xl">
-            <div class="glass-panel p-10 md:p-32 rounded-[3.5rem] md:rounded-[6rem] border-2 border-[#15803d]/10 shadow-2xl relative z-10 text-center" data-aos="zoom-in">
-                <div class="inline-block w-20 h-20 md:w-32 md:h-32 bg-[#15803d] rounded-full flex items-center justify-center mb-12 shadow-2xl">
-                    <i class="fas fa-shield-alt text-3xl md:text-6xl text-white"></i>
-                </div>
-                <h2 class="text-3xl md:text-[8rem] font-black mb-10 md:mb-20 text-gray-900 tracking-tighter italic leading-none">SSNIM <span class="text-[#15803d]">TRUST</span></h2>
-                
-                <div class="space-y-8 md:space-y-16 text-lg md:text-4xl text-gray-700 font-black leading-relaxed mb-12 md:mb-24 px-2">
-                    <p class="text-[#15803d] border-b-4 md:border-b-8 border-green-50 inline-block pb-4 mb-8 text-xl md:text-5xl italic">"불만족 시 협의에 따라 100% 환불 가능합니다"</p>
-                    <p class="text-sm md:text-2xl font-bold text-gray-400 opacity-90 leading-relaxed px-4">
-                        스승님은 투명한 기준으로 소비자에게 <br class="hidden md:block"> 가치 있는 레슨만 엄선하여 제공합니다.<br><br>
-                        레슨 성과에 대해 만족하지 못하실 경우 <br class="hidden md:block">
-                        마스터와 소통을 통해 책임 있게 해결해 드릴 것을 약속합니다.
-                    </p>
-                </div>
-                <div class="flex justify-center gap-3 md:gap-6 text-[#15803d] font-black text-[9px] md:text-lg tracking-[0.4em] uppercase opacity-40">
-                    <span>Integrity</span> <span>•</span> <span>Professionalism</span> <span>•</span> <span>Results</span>
-                </div>
-            </div>
-        </div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] bg-green-50 rounded-full blur-[200px] -z-0 opacity-50"></div>
-    </section>
-
-    <!-- 8️⃣ PRICING: THE INVESTMENT -->
-    <section class="section-py bg-white text-center px-6" id="pricing">
-        <div class="container mx-auto max-w-4xl">
-            <div class="mb-20 md:mb-40" data-aos="fade-up">
-                <span class="text-[#15803d] font-black text-[10px] md:text-sm tracking-[0.5em] block mb-8 uppercase">The Elite Masterclass</span>
-                <h2 class="text-4xl md:text-[10rem] font-black italic tracking-tighter text-gray-900 leading-none">INVESTMENT</h2>
-            </div>
-
-            <div class="bg-white rounded-[3.5rem] md:rounded-[7rem] shadow-[0_80px_150px_-30px_rgba(21,128,61,0.12)] border-[8px] md:border-[20px] border-[#15803d] p-8 md:p-32 relative overflow-hidden" data-aos="zoom-in">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-[#c5a059] opacity-[0.05] -rotate-45 translate-x-20 -translate-y-20"></div>
-                
-                <div class="mb-16 md:mb-32">
-                    <p class="text-gray-400 text-lg md:text-4xl font-black mb-8 tracking-[0.1em] md:tracking-[0.2em] uppercase">Private Intensive 6H Session</p>
-                    <div class="flex items-end justify-center gap-2 md:gap-6 text-[#15803d]">
-                        <span class="text-8xl md:text-[18rem] font-black leading-none tracking-tighter">15</span>
-                        <span class="text-4xl md:text-9xl font-black mb-4 md:mb-20">만원</span>
-                    </div>
-                    <p class="text-gray-400 font-bold text-sm md:text-3xl mt-8 md:mt-16 tracking-tight italic">Ultimate handicap breaker for your life</p>
-                </div>
-
-                <div class="grid lg:grid-cols-2 gap-12 md:gap-24 text-left border-t border-gray-100 pt-16 md:pt-32">
-                    <div class="space-y-8">
-                        <h4 class="font-black text-xl md:text-4xl text-gray-900 border-b-4 border-[#15803d] inline-block pb-2">Inclusive</h4>
-                        <ul class="space-y-5 text-gray-600 font-bold text-base md:text-2xl">
-                            <li class="flex gap-4 md:gap-6 items-start"><i class="fas fa-check-circle text-[#15803d] mt-1.5 md:text-2xl"></i> 곽시랑 프로 1:1 밀착 필드 티칭</li>
-                            <li class="flex gap-4 md:gap-6 items-start"><i class="fas fa-check-circle text-[#15803d] mt-1.5 md:text-2xl"></i> 실전 데이터 맞춤 분석 시스템</li>
-                            <li class="flex gap-4 md:gap-6 items-start"><i class="fas fa-check-circle text-[#15803d] mt-1.5 md:text-2xl"></i> 타수 방어를 위한 매니지먼트 전략</li>
-                            <li class="flex gap-4 md:gap-6 items-start"><i class="fas fa-check-circle text-[#15803d] mt-1.5 md:text-2xl"></i> 개인별 교정 영상 & 피드백 리포트</li>
-                        </ul>
-                    </div>
-                    <div class="bg-green-50/50 p-10 md:p-16 rounded-[2.5rem] md:rounded-[4rem] flex flex-col justify-center items-center text-center">
-                        <p class="text-gray-400 font-black italic text-lg md:text-4xl mb-10 underline underline-offset-8 decoration-green-200 leading-relaxed">※ 입장료 및 <br class="md:hidden"> 제반 비용 별도</p>
-                        <div class="space-y-4">
-                            <p class="text-gray-500 font-bold text-sm md:text-2xl"><i class="fas fa-credit-card mr-2 text-[#15803d]"></i> 카드 무이자 할부 지원</p>
-                            <p class="text-gray-500 font-bold text-sm md:text-2xl"><i class="fas fa-file-invoice mr-2 text-[#15803d]"></i> 법인 결제 및 지출 증빙</p>
-                        </div>
-                    </div>
-                </div>
-
-                <a href="#register" class="btn-premium block w-full py-8 md:py-16 rounded-[2rem] md:rounded-[4rem] text-2xl md:text-[4.5rem] font-black mt-16 md:mt-32 bg-[#15803d] text-white shadow-2xl transform transition-all hover:scale-[1.02] active:scale-95">
-                    상담 신청하고 자리 확보
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 9️⃣ FAQ: COMPREHENSIVE (Lengthy for SEO & Trust) -->
-    <section class="section-py bg-white px-6">
-        <div class="container mx-auto max-w-5xl">
-            <div class="text-center mb-16 md:mb-32" data-aos="fade-up">
-                <span class="text-[#c5a059] font-black text-xs md:text-sm tracking-[0.5em] block mb-8 uppercase">Information Center</span>
-                <h2 class="text-4xl md:text-[8rem] font-black tracking-tighter text-gray-900 leading-none italic">FAQ</h2>
-            </div>
-
-            <div class="space-y-6 md:space-y-10">
-                <!-- Q1 -->
-                <details class="group glass-panel rounded-[2rem] md:rounded-[4rem] p-8 md:p-16 transition-all border border-gray-100 hover:border-[#15803d]" open>
-                    <summary class="flex justify-between items-center cursor-pointer font-black text-lg md:text-3xl tracking-tight text-gray-900">
-                        <span>Q. 초보(백돌이)도 효과를 볼 수 있나요?</span>
-                        <i class="fas fa-chevron-down text-[#15803d] transition-transform duration-500"></i>
+    <!-- 20️⃣ FAQ -->
+    <section class="section-py bg-white container-px">
+        <div class="max-w-md mx-auto" data-aos="fade-up">
+            <h2 class="mb-10 text-center uppercase font-mont">FAQ</h2>
+            <div class="space-y-4">
+                <details class="group glass-panel rounded-2xl p-6 border border-gray-100">
+                    <summary class="flex justify-between items-center cursor-pointer font-black text-sm">
+                        <span>초보(백돌이)도 참가가 가능한가요?</span>
+                        <i class="fas fa-chevron-down text-[#15803d] transition-transform"></i>
                     </summary>
-                    <div class="mt-8 text-base md:text-2xl text-gray-500 font-medium leading-relaxed border-t border-gray-100 pt-8">
-                        당연합니다. 오히려 나쁜 습관이 몸에 배기 전인 초보자일수록 흡수력이 훨씬 빠릅니다. 곽시랑 프로의 레슨은 어려운 이론이 아닌 '실전 공식'을 전수하는 것이기에 누구나 즉시 적용하여 5~10타를 줄일 수 있습니다.
+                    <div class="mt-6 text-sm text-gray-500 font-medium border-t pt-4 leading-relaxed">
+                        당연합니다. 잘못된 습관이 들기 전인 초보자일수록 레슨의 흡수율이 훨씬 높습니다. 곽시랑 프로의 레슨은 어려운 기술이 아닌 실전 공식을 만드는 것이기에 적극 추천합니다.
                     </div>
                 </details>
-                <!-- Q2 -->
-                <details class="group glass-panel rounded-[2rem] md:rounded-[4rem] p-8 md:p-16 transition-all border border-gray-100 hover:border-[#15803d]">
-                    <summary class="flex justify-between items-center cursor-pointer font-black text-lg md:text-3xl tracking-tight text-gray-900">
-                        <span>Q. 개인 클럽이 없어도 신청이 가능한가요?</span>
-                        <i class="fas fa-chevron-down text-[#15803d] transition-transform duration-500"></i>
+                <details class="group glass-panel rounded-2xl p-6 border border-gray-100">
+                    <summary class="flex justify-between items-center cursor-pointer font-black text-sm">
+                        <span>입장료는 보통 얼마 정도 나오나요?</span>
+                        <i class="fas fa-chevron-down text-[#15803d] transition-transform"></i>
                     </summary>
-                    <div class="mt-8 text-base md:text-2xl text-gray-500 font-medium leading-relaxed border-t border-gray-100 pt-8">
-                        네, 대여 클럽 조율이 가능합니다. 다만 실전 레슨의 특성상 본인의 클럽으로 실제 거리감을 익히는 것이 가장 효과적입니다. 상담 시 말씀해 주시면 최적의 방안을 안내해 드립니다.
+                    <div class="mt-6 text-sm text-gray-500 font-medium border-t pt-4 leading-relaxed">
+                        골프장마다 상이하나 보통 3~5만원 내외로 형성되어 있습니다. 자세한 장소와 비용은 예약 시 안내해 드립니다.
                     </div>
                 </details>
-                <!-- Q3 -->
-                <details class="group glass-panel rounded-[2rem] md:rounded-[4rem] p-8 md:p-16 transition-all border border-gray-100 hover:border-[#15803d]">
-                    <summary class="flex justify-between items-center cursor-pointer font-black text-lg md:text-3xl tracking-tight text-gray-900">
-                        <span>Q. 비가 올 경우 일정은 어떻게 되나요?</span>
-                        <i class="fas fa-chevron-down text-[#15803d] transition-transform duration-500"></i>
+                <details class="group glass-panel rounded-2xl p-6 border border-gray-100">
+                    <summary class="flex justify-between items-center cursor-pointer font-black text-sm">
+                        <span>혼자 가도 어색하지 않을까요?</span>
+                        <i class="fas fa-chevron-down text-[#15803d] transition-transform"></i>
                     </summary>
-                    <div class="mt-8 text-base md:text-2xl text-gray-500 font-medium leading-relaxed border-t border-gray-100 pt-8">
-                        폭우로 필드 이용이 불가능할 경우, 일정을 재조율하거나 실내 프라이빗 분석 스튜디오에서 1:1 정밀 피드백 세션으로 대체 가능합니다. 어떤 상황에서도 고객님의 가치 있는 시간을 낭비하지 않습니다.
-                    </div>
-                </details>
-                <!-- Q4 -->
-                <details class="group glass-panel rounded-[2rem] md:rounded-[4rem] p-8 md:p-16 transition-all border border-gray-100 hover:border-[#15803d]">
-                    <summary class="flex justify-between items-center cursor-pointer font-black text-lg md:text-3xl tracking-tight text-gray-900">
-                        <span>Q. 주말 예약은 언제 마감되나요?</span>
-                        <i class="fas fa-chevron-down text-[#15803d] transition-transform duration-500"></i>
-                    </summary>
-                    <div class="mt-8 text-base md:text-2xl text-gray-500 font-medium leading-relaxed border-t border-gray-100 pt-8">
-                        프리미엄 1:1 레슨 특성상 하루 단 한 분만 모시기 때문에 주말 슬롯은 보통 3~4주 전에 마감됩니다. 원하시는 특정 일정이 있다면 상담 접수를 통해 우선 순위를 선점하시길 권장합니다.
+                    <div class="mt-6 text-sm text-gray-500 font-medium border-t pt-4 leading-relaxed">
+                        신청자의 80% 이상이 개인 참여자입니다. 골프라는 공통 관심사로 금방 친해지며, 프로가 분위기를 편안하게 이끌어 드립니다.
                     </div>
                 </details>
             </div>
         </div>
     </section>
 
-    <!-- 🔟 FINAL REGISTRATION (Premium Form) -->
-    <section id="register" class="section-py bg-[#0f172a] text-white px-6">
-        <div class="container mx-auto max-w-5xl">
-            <div class="glass-panel rounded-[3.5rem] md:rounded-[7rem] shadow-2xl p-10 md:p-32 border border-white/10 relative overflow-hidden">
-                <div class="absolute -top-40 -right-40 w-[600px] h-[600px] bg-[#15803d] rounded-full blur-[200px] opacity-10"></div>
-                
-                <div class="text-center mb-16 md:mb-32 relative z-10" data-aos="fade-up">
-                    <span class="text-[#c5a059] font-black text-[10px] md:text-sm tracking-[0.6em] block mb-8 uppercase">Private Consultation</span>
-                    <h2 class="text-4xl md:text-[8rem] font-black mb-10 md:mb-16 tracking-tighter italic text-[#111827] leading-none">RESERVE</h2>
-                    <p class="text-lg md:text-4xl text-gray-500 font-bold leading-relaxed max-w-3xl mx-auto italic">
-                        "더 늦기 전에 스코어를 바꾸십시오." <br>
-                        접수 시 24시간 내 마스터가 직접 연락드립니다.
-                    </p>
-                </div>
-
-                <form id="lessonForm" action="https://formspree.io/f/mbdakbon" method="POST" class="space-y-10 md:space-y-20 relative z-10" data-aos="fade-up">
-                    <div class="grid md:grid-cols-2 gap-8 md:gap-16">
-                        <div class="space-y-4">
-                            <label class="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-[0.4em] pl-6">Full Name</label>
-                            <input type="text" name="name" required placeholder="성함을 입력하세요"
-                                   class="w-full px-8 py-6 md:px-14 md:py-12 rounded-[2rem] md:rounded-[3.5rem] border-2 border-gray-100 focus:border-[#15803d] outline-none transition-all text-lg md:text-3xl font-black bg-white text-gray-900 shadow-sm focus:shadow-2xl">
-                        </div>
-                        <div class="space-y-4">
-                            <label class="text-[10px] md:text-xs font-black text-gray-400 uppercase tracking-[0.4em] pl-6">Contact Info</label>
-                            <input type="tel" name="phone" required placeholder="010-0000-0000"
-                                   class="w-full px-8 py-6 md:px-14 md:py-12 rounded-[2rem] md:rounded-[3.5rem] border-2 border-gray-100 focus:border-[#15803d] outline-none transition-all text-lg md:text-3xl font-black bg-white text-gray-900 shadow-sm focus:shadow-2xl">
-                        </div>
-                    </div>
-
-                    <div class="space-y-4 text-gray-900">
-                        <label class="text-[10px] md:text-xs font-black text-gray-300 uppercase tracking-[0.4em] pl-6">Handicap & Goals</label>
-                        <textarea name="message" rows="5" placeholder="평균 타수와 레슨을 통해 달성하고 싶은 최종 목표를 남겨주시면 커리큘럼 구성에 반영됩니다."
-                                  class="w-full px-8 py-8 md:px-14 md:py-14 rounded-[2.5rem] md:rounded-[4.5rem] border-2 border-gray-100 focus:border-[#15803d] outline-none transition-all text-lg md:text-3xl font-black bg-white shadow-sm focus:shadow-2xl"></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-premium w-full py-10 md:py-20 rounded-full text-3xl md:text-[4.5rem] font-black bg-[#15803d] text-white shadow-2xl transition-all transform hover:scale-[1.01]">
-                        상담 예약 신청하기
-                    </button>
-                    <p class="text-center text-gray-500 font-bold text-[10px] md:text-xl tracking-tight px-4 italic opacity-50">※ 수집된 정보는 보안 처리되며 담당 마스터가 비밀리에 연락드립니다.</p>
-                </form>
+    <!-- 19️⃣ FINAL CTA SECTION -->
+    <section class="section-py bg-[#15803d] text-white container-px text-center">
+        <div class="max-w-md mx-auto" data-aos="zoom-in">
+            <h2 class="text-white mb-8">"지금 이 순간에도 <br> 예약은 진행 중입니다"</h2>
+            <p class="text-green-50 opacity-80 mb-12 font-bold italic">더 이상 미루는 골프는 성장을 막을 뿐입니다.</p>
+            <div class="flex flex-col gap-4">
+                <a href="https://ssnim.com/install.html" class="btn-premium bg-white text-[#15803d] py-5 rounded-2xl font-black text-xl shadow-2xl">📲 즉시 예약하기</a>
+                <a href="http://pf.kakao.com/_kxawRn/chat" class="btn-premium border-2 border-white/50 text-white py-5 rounded-2xl font-bold text-xl">💬 문의하기</a>
             </div>
+            <p class="text-[10px] mt-8 opacity-40 font-bold uppercase tracking-widest">© 2026 SEUSEUNGNIM MASTER. ALL RIGHTS RESERVED.</p>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-white py-32 md:py-56 text-center border-t border-gray-50 px-8">
-        <div class="container mx-auto max-w-4xl">
-            <img src="https://rlaeodn1015-oss.github.io/camp/images/ssnim.png" alt="SSNIM" class="h-32 md:h-56 mx-auto opacity-30 mb-20 md:mb-32 grayscale">
-            <div class="text-gray-400 text-sm md:text-2xl leading-relaxed mb-16 md:mb-32 font-bold tracking-tight">
-                <span class="text-gray-900 font-black">Premium Field Masterclass Series No.1</span> <br><br>
-                사업자번호: 470-81-03277 | 주소: 경기도 수원시 광교로 107, 204호 <br>
-                고객센터: 02-1551-0641 | 곽시랑 프로 KLPGA Member <br>
-                Official Platform: <a href="https://ssnim.com" class="underline">ssnim.com</a>
-            </div>
-            <p class="text-[9px] md:text-sm text-gray-300 font-medium tracking-[0.4em] italic uppercase pb-24 md:pb-0">© 2026 SEUSEUNGNIM MASTER. ALL RIGHTS RESERVED.</p>
-        </div>
-    </footer>
-
-    <!-- 📱 MOBILE FIXED CTA BAR (Always Visible on Mobile) -->
-    <div class="lg:hidden mobile-cta-bar shadow-[0_-20px_50px_rgba(0,0,0,0.1)] border-t-2 border-[#15803d]/5">
-        <a href="http://pf.kakao.com/_kxawRn/chat" class="flex-1 bg-white border-2 border-gray-100 text-gray-700 py-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
+    <!-- 📱 MOBILE FIXED CTA BAR -->
+    <div class="lg:hidden mobile-cta-bar shadow-[0_-15px_50px_rgba(0,0,0,0.12)]">
+        <a href="http://pf.kakao.com/_kxawRn/chat" class="flex-1 bg-white border border-gray-200 text-gray-700 py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-sm">
             <i class="fas fa-comment"></i> 상담
         </a>
-        <a href="#register" class="flex-[2.5] bg-[#15803d] text-white py-4 rounded-xl font-black text-base flex items-center justify-center gap-2 shadow-xl">
-            즉시 예약하기 <i class="fas fa-arrow-right text-xs"></i>
-        </a>
-    </div>
-
-    <!-- Quick Floating Action for Desktop -->
-    <div class="fixed right-8 bottom-8 z-[200] hidden lg:flex flex-col gap-6">
-        <a href="http://pf.kakao.com/_kxawRn/chat" target="_blank" class="w-20 h-20 bg-[#FEE500] text-black rounded-full shadow-2xl flex items-center justify-center text-4xl hover:scale-110 transition-transform animate-bounce">
-            <i class="fas fa-comment"></i>
+        <a href="#pricing" class="flex-[2.5] bg-[#15803d] text-white py-3.5 rounded-xl font-black text-sm flex items-center justify-center gap-2 shadow-xl active:scale-95 transition-transform">
+            즉시 예약하기 <i class="fas fa-arrow-right text-[10px]"></i>
         </a>
     </div>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        AOS.init({ 
-            duration: 1200, 
-            once: true, 
-            easing: 'ease-out-expo',
-            offset: 50
-        });
+        AOS.init({ duration: 1000, once: true, easing: 'ease-out-expo', offset: 30 });
 
         // Timer Logic
         function startTimer(duration, display) {
@@ -697,26 +443,20 @@
                 hours = parseInt(timer / 3600, 10);
                 minutes = parseInt((timer % 3600) / 60, 10);
                 seconds = parseInt(timer % 60, 10);
-
                 hours = hours < 10 ? "0" + hours : hours;
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
-
                 display.textContent = hours + ":" + minutes + ":" + seconds;
-
-                if (--timer < 0) {
-                    timer = duration;
-                }
+                if (--timer < 0) { timer = duration; }
             }, 1000);
         }
 
         window.onload = function () {
-            var threeHours = 60 * 60 * 3,
-                display = document.querySelector('#timer');
+            var threeHours = 60 * 60 * 3, display = document.querySelector('#timer');
             startTimer(threeHours, display);
         };
 
-        // Scroll Progress & Header Shrink
+        // Scroll Performance
         window.onscroll = function() {
             let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -724,10 +464,10 @@
             document.getElementById("progress-bar").style.width = scrolled + "%";
 
             const header = document.getElementById('mainHeader');
-            if (winScroll > 80) {
-                header.classList.add('h-14', 'md:h-20', 'shadow-2xl', 'bg-white/98');
+            if (winScroll > 50) {
+                header.classList.add('shadow-xl', 'bg-white/98');
             } else {
-                header.classList.remove('h-14', 'md:h-20', 'shadow-2xl', 'bg-white/98');
+                header.classList.remove('shadow-xl', 'bg-white/98');
             }
         };
 
