@@ -136,7 +136,7 @@
                 </p>
                 <div class="flex flex-col gap-3 px-4 max-w-sm mx-auto">
                     <a href="https://ssnim.com/install.html" class="btn-premium bg-[#15803d] text-white py-4 rounded-xl font-black text-lg">📲 앱 예약 바로가기</a>
-                   <a href="#" onclick="openForm()"
+                   <a href="#" onclick="openForm()" 
 class="btn-premium bg-[#15803d] text-white py-4 rounded-xl font-black text-lg">
 📲 레슨 신청하기
 </a>
@@ -491,7 +491,9 @@ class="btn-premium border-2 border-gray-200 bg-white text-gray-700 py-4 rounded-
         };
 
         function openForm() {
-    document.getElementById("popupForm").classList.remove("hidden");
+    const el = document.getElementById("popupForm");
+    el.classList.remove("hidden");
+    el.classList.add("flex");
 }
 
 function submitForm() {
@@ -530,7 +532,7 @@ function submitForm() {
 }
     </script>
 
-    <div id="popupForm" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-[9999]">
+    <div id="popupForm" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-[9999]">
   <div class="bg-white p-8 rounded-2xl w-[90%] max-w-sm">
     
     <h3 class="text-xl font-black mb-4">레슨 신청</h3>
